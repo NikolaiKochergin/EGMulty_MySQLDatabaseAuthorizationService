@@ -20,7 +20,7 @@ namespace Source.Scenes
         [SerializeField] private GameObject _authorizationView;
         [SerializeField] private GameObject _registrationView;
         
-        private AuthorizationService _authorization;
+        private IAuthorizationService _authorization;
         private bool _isRegistrationViewActive;
 
         private void Awake() => 

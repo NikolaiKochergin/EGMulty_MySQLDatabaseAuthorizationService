@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 namespace Source.Scripts.Services.Authorization
 {
-    public class AuthorizationService
+    public class AuthorizationService : IAuthorizationService
     {
         private const string Login = "login";
         private const string Password = "password";
