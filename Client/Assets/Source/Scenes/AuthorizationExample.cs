@@ -1,12 +1,13 @@
-﻿using TMPro;
+﻿using Source.Scripts.Services.Authorization;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Services.Authorization
+namespace Source.Scenes
 {
     public class AuthorizationExample : MonoBehaviour
     {
-        private const string Main = "http://<address>/";
+        private const string Main = "http://<database>/";
 
         [SerializeField] private TMP_InputField _login;
         [SerializeField] private TMP_InputField _password;
