@@ -111,6 +111,5 @@ namespace Source.Scripts.Services.Authorization
                     onErrorCallback?.Invoke("Request timeout.");
             }
         }
-
     }
 }
