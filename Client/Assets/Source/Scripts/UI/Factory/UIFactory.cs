@@ -43,8 +43,11 @@ namespace Source.Scripts.UI.Factory
             return InstantiateAndInject(prefab, _uiRoot);
         }
 
-        public void Cleanup() => 
-            _uiRoot?.Destroy();
+        public void Cleanup()
+        {
+            if(_uiRoot != null)
+                _uiRoot.Destroy();
+        }
 
         private T InstantiateAndInject<T>(T prefab, Transform parent = null) where T : Component
         {

@@ -23,8 +23,8 @@ namespace Source.Scripts.UI.Services.Windows
 
         public void CloseWindow(WindowId id)
         {
-            if(_openedWindows.Remove(id, out WindowBase window))
-                window?.Close();
+            if(_openedWindows.Remove(id, out WindowBase window) && window != null)
+                window.Close();
         }
 
         public void Cleanup()
