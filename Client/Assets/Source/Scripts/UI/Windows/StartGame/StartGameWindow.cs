@@ -19,7 +19,7 @@ namespace Source.Scripts.UI.Windows.StartGame
         {
             base.Initialize();
             if(_deck.IsLoaded)
-                _deckView.Display(_deck.SelectedCards);
+                DisplayCards();
             else
                 _deck.Updated += OnDeckUpdated;
         }
@@ -27,7 +27,10 @@ namespace Source.Scripts.UI.Windows.StartGame
         private void OnDeckUpdated()
         {
             _deck.Updated -= OnDeckUpdated;
-            _deckView.Display(_deck.SelectedCards);
+            DisplayCards();
         }
+
+        private void DisplayCards() => 
+            _deckView.Display(_deck.SelectedCards);
     }
 }

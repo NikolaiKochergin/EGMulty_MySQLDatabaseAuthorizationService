@@ -18,3 +18,7 @@ MonoBehaviour:
     _window: {fileID: 1024631388774314594, guid: 135c2d180c5789e468d69e62c7501e6c, type: 3}
   - _windowId: 2
     _window: {fileID: 3781020365323827734, guid: aba3cd6d61d92964fbb8039920e0517c, type: 3}
+  - _windowId: 3
+    _window: {fileID: 5543414560408065007, guid: e8c63bb6f3f170e41a5be142dfc64092, type: 3}
+  - _windowId: 4
+    _window: {fileID: 3795268992717278976, guid: 328519b9a745516409e7eb6fb8a80404, type: 3}
