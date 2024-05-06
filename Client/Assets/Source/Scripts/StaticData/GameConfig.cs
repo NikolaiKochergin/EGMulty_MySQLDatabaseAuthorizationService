@@ -20,7 +20,7 @@ namespace Source.Scripts.StaticData
             foreach (CardInfo card in _cards) 
                 card.Validate();
             
-            List<string> duplicates = _cards
+            List<int> duplicates = _cards
                 .GroupBy(x => x.Id)
                 .Where(g => g.Count() > 1)
                 .Select(y => y.Key)
@@ -30,10 +30,9 @@ namespace Source.Scripts.StaticData
                 return;
 
             string duplicateIds = duplicates
-                .Aggregate(string.Empty, (current, duplicate) => 
-                    current + (string.IsNullOrEmpty(duplicate) ? " Empty," : $" {duplicate},"))
+                .Aggregate(string.Empty, (current, duplicate) => current + $" {duplicate},")
                 .TrimEnd(',');
-                
+
             Debug.LogError("Cards List has duplicates with ids:" + duplicateIds);
         }
 #endif

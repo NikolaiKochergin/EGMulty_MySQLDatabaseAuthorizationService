@@ -1,4 +1,5 @@
 ﻿using Reflex.Core;
+using Source.Scripts.GameCore.Deck.Service;
 using Source.Scripts.Infrastructure.Services.Authorization;
 using Source.Scripts.Infrastructure.Services.Network;
 using Source.Scripts.Infrastructure.Services.StaticData;
@@ -18,10 +19,12 @@ namespace Source.Scripts.Infrastructure
                 .AddSingleton(typeof(StaticDataService), typeof(IStaticDataService))
                 .AddSingleton(typeof(NetworkService), typeof(INetworkService))
                 .AddSingleton(typeof(AuthorizationService), typeof(IAuthorizationService))
+                .AddSingleton(typeof(DeckService), typeof(IDeckService))
                 .Build();
             
             container.Single<IStaticDataService>().Load();
             container.Single<IAuthorizationService>().Initialize();
+            container.Single<IDeckService>().Initialize();
         }
     }
 }

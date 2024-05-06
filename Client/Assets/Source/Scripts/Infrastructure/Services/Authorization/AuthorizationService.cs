@@ -24,6 +24,7 @@ namespace Source.Scripts.Infrastructure.Services.Authorization
             _network = network;
         }
         
+        public int UserId { get; private set; }
         public bool IsAuthorized { get; private set; }
 
         public event Action AuthorizationHappened;
@@ -63,6 +64,7 @@ namespace Source.Scripts.Infrastructure.Services.Authorization
 
                 if (int.TryParse(result[1], out int id))
                 {
+                    UserId = id;
                     IsAuthorized = true;
                     AuthorizationHappened?.Invoke();
                     onSuccessCallback?.Invoke($"User id: {id}");

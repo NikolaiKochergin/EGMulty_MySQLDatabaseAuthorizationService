@@ -16,7 +16,7 @@ namespace Source.Scripts.Infrastructure.Services.StaticData
         private GameConfig _gameConfig;
         private UIConfig _uiConfig;
         private Dictionary<WindowId, WindowBase> _windowsData;
-        private Dictionary<string, CardInfo> _cardsData;
+        private Dictionary<int, CardInfo> _cardsData;
 
         public void Load()
         {
@@ -42,10 +42,7 @@ namespace Source.Scripts.Infrastructure.Services.StaticData
         public WindowBase ForWindow(WindowId id) =>
             _windowsData.GetValueOrDefault(id);
 
-        public CardInfo ForCard(string id) =>
+        public CardInfo ForCard(int id) =>
             _cardsData.GetValueOrDefault(id);
-
-        public IReadOnlyList<CardInfo> ForCards() =>
-            _gameConfig.Cards;
     }
 }
