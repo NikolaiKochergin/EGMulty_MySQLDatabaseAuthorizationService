@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine.Networking;
 
-namespace Source.Scripts.Services.Network
+namespace Source.Scripts.Infrastructure.Services.Network
 {
-    public class NetworkService
+    public class NetworkService : INetworkService
     {
-        private const double Timout = 5;
+        private const double Timout = 1;
         
-        private static async UniTaskVoid SendRequest(string uri, Dictionary<string, string> data, Action<string> onSuccessCallback = null, Action<string> onErrorCallback = null)
+        public async UniTaskVoid SendRequest(string uri, Dictionary<string, string> data, Action<string> onSuccessCallback = null, Action<string> onErrorCallback = null)
         {
             using TimeoutController timeout = new TimeoutController();
             try

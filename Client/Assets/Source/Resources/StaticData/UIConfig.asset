@@ -15,4 +15,6 @@ MonoBehaviour:
   _uiRoot: {fileID: 3785745051660999293, guid: 8f87d9e9f1b3d2242bed4cf6237a18a5, type: 3}
   _windowsConfig:
   - _windowId: 1
-    _window: {fileID: 74314788515580103, guid: d2332548175d0344296d78c2425f64cf, type: 3}
+    _window: {fileID: 1024631388774314594, guid: 135c2d180c5789e468d69e62c7501e6c, type: 3}
+  - _windowId: 2
+    _window: {fileID: 3781020365323827734, guid: aba3cd6d61d92964fbb8039920e0517c, type: 3}

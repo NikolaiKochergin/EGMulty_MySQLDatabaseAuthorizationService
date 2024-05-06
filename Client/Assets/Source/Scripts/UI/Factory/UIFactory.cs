@@ -2,7 +2,7 @@
 using Reflex.Core;
 using Reflex.Injectors;
 using Source.Scripts.Extensions;
-using Source.Scripts.Services.StaticData;
+using Source.Scripts.Infrastructure.Services.StaticData;
 using Source.Scripts.UI.StaticData;
 using Source.Scripts.UI.Windows;
 using UnityEngine;

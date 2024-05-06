@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Source.Scripts.GameCore.Deck.StaticData;
 using UnityEngine;
 
 namespace Source.Scripts.StaticData
@@ -7,8 +8,10 @@ namespace Source.Scripts.StaticData
     [CreateAssetMenu(fileName = "GameConfig", menuName = "Static Data/GameConfig", order = 0)]
     public class GameConfig : ScriptableObject
     {
+        [SerializeField] private string _mainUrl;
         [SerializeField] private List<CardInfo> _cards;
 
+        public string MainUrl => _mainUrl;
         public IReadOnlyList<CardInfo> Cards => _cards;
 
 #if UNITY_EDITOR

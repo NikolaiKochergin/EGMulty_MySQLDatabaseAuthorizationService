@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Source.Scripts.StaticData
+namespace Source.Scripts.GameCore.Deck.StaticData
 {
     [Serializable]
     public class CardInfo

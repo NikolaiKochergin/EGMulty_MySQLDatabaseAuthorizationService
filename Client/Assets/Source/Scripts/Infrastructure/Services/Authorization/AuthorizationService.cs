@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using UnityEngine.Networking;
+using Source.Scripts.Infrastructure.Services.Network;
+using Source.Scripts.Infrastructure.Services.StaticData;
 
-namespace Source.Scripts.Services.Authorization
+namespace Source.Scripts.Infrastructure.Services.Authorization
 {
     public class AuthorizationService : IAuthorizationService
     {
@@ -11,13 +11,26 @@ namespace Source.Scripts.Services.Authorization
         private const string Password = "password";
         private const string AuthorizationUri = "authorization.php";
         private const string RegistrationUri = "registration.php";
-        private const double Timout = 5;
         
-        private readonly string _authorizationUri;
-        private readonly string _registrationUri;
+        private readonly IStaticDataService _staticData;
+        private readonly INetworkService _network;
+
+        private string _authorizationUri;
+        private string _registrationUri;
         
-        public AuthorizationService(string mainUrl)
+        public AuthorizationService(IStaticDataService staticData, INetworkService network)
         {
+            _staticData = staticData;
+            _network = network;
+        }
+        
+        public bool IsAuthorized { get; private set; }
+
+        public event Action AuthorizationHappened;
+
+        public void Initialize()
+        {
+            string mainUrl = _staticData.ForMainUrl();
             _authorizationUri = mainUrl + AuthorizationUri;
             _registrationUri = mainUrl + RegistrationUri;
         }
@@ -36,7 +49,7 @@ namespace Source.Scripts.Services.Authorization
                 {Password, password}
             };
 
-            SendRequest(_authorizationUri, data, OnSuccess, onErrorCallback).Forget();
+            _network.SendRequest(_authorizationUri, data, OnSuccess, onErrorCallback).Forget();
             return;
 
             void OnSuccess(string request)
@@ -49,9 +62,15 @@ namespace Source.Scripts.Services.Authorization
                 }
 
                 if (int.TryParse(result[1], out int id))
+                {
+                    IsAuthorized = true;
+                    AuthorizationHappened?.Invoke();
                     onSuccessCallback?.Invoke($"User id: {id}");
+                }
                 else
+                {
                     onErrorCallback?.Invoke($"Couldn't parse \"{result[1]}\" to INT. Server request: {request}");
+                }
             }
         }
 
@@ -59,7 +78,7 @@ namespace Source.Scripts.Services.Authorization
         {
             if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
             {
-                onErrorCallback?.Invoke("Login and/ore password is empty");
+                onErrorCallback?.Invoke("Login and/or password is empty");
                 return;
             }
 
@@ -75,7 +94,7 @@ namespace Source.Scripts.Services.Authorization
                 {Password, password}
             };
             
-            SendRequest(_registrationUri, data, OnSuccess, onErrorCallback).Forget();
+            _network.SendRequest(_registrationUri, data, OnSuccess, onErrorCallback).Forget();
             return;
 
             void OnSuccess(string result)
@@ -84,31 +103,6 @@ namespace Source.Scripts.Services.Authorization
                     onSuccessCallback?.Invoke("Registration is successful");
                 else
                     onErrorCallback?.Invoke($"Server request: {result}");
-            }
-        }
-
-        private static async UniTaskVoid SendRequest(string uri, Dictionary<string, string> data, Action<string> onSuccessCallback = null, Action<string> onErrorCallback = null)
-        {
-            using TimeoutController timeout = new TimeoutController();
-            try
-            {
-                using UnityWebRequest webRequest = await UnityWebRequest
-                    .Post(uri, data)
-                    .SendWebRequest()
-                    .WithCancellation(timeout.Timeout(TimeSpan.FromSeconds(Timout)));
-                
-                timeout.Reset();
-
-                if (webRequest.result == UnityWebRequest.Result.Success)
-                {
-                    string result = DownloadHandlerBuffer.GetContent(webRequest);
-                    onSuccessCallback?.Invoke(result);
-                }
-            }
-            catch (OperationCanceledException)
-            {
-                if (timeout.IsTimeout())
-                    onErrorCallback?.Invoke("Request timeout.");
             }
         }
     }
