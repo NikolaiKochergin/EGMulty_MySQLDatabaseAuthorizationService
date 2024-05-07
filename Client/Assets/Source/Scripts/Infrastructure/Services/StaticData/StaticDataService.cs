@@ -36,6 +36,9 @@ namespace Source.Scripts.Infrastructure.Services.StaticData
         public string ForMainUrl() => 
             _gameConfig.MainUrl;
 
+        public int ForHandCapacity() => 
+            _gameConfig.HandCapacity;
+
         public UIRoot ForUIRoot() =>
             _uiConfig.UIRoot;
 

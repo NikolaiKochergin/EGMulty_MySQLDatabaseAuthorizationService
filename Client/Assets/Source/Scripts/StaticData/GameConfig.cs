@@ -9,10 +9,12 @@ namespace Source.Scripts.StaticData
     public class GameConfig : ScriptableObject
     {
         [SerializeField] private string _mainUrl;
+        [SerializeField, Min(0)] private int _handCapacity = 5;
         [SerializeField] private List<CardInfo> _cards;
 
         public string MainUrl => _mainUrl;
-        public IReadOnlyList<CardInfo> Cards => _cards;
+        public int HandCapacity => _handCapacity;
+        public IEnumerable<CardInfo> Cards => _cards;
 
 #if UNITY_EDITOR
         private void OnValidate()

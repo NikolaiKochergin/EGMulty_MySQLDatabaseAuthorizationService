@@ -1,16 +1,12 @@
 ﻿using Reflex.Attributes;
-using Source.Scripts.UI.Extensions;
 using Source.Scripts.UI.Services.Windows;
-using Source.Scripts.UI.StaticData;
 using Source.Scripts.UI.Windows;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Source.Scripts.UI.Elements
 {
-    public class CloseWindowButton : MonoBehaviour
+    public sealed class CloseWindowButton : ButtonBase
     {
-        [SerializeField] private Button _button;
         [SerializeField] private WindowId _windowId;
         
         private IWindowService _windows;
@@ -20,17 +16,12 @@ namespace Source.Scripts.UI.Elements
             _windows = windows;
 
         private void Awake() => 
-            _button.AddListener(OnButtonClicked);
+            AddListener(OnButtonClicked);
 
         private void OnDestroy() => 
-            _button.RemoveListener(OnButtonClicked);
+            RemoveListener(OnButtonClicked);
 
         private void OnButtonClicked() => 
             _windows.CloseWindow(_windowId);
-
-#if UNITY_EDITOR
-        public void Reset() => 
-            _button = GetComponent<Button>();
-#endif
     }
 }

@@ -10,5 +10,6 @@ namespace Source.Scripts.Infrastructure.Services.StaticData
         WindowBase ForWindow(WindowId id);
         public CardInfo ForCard(int id);
         string ForMainUrl();
+        int ForHandCapacity();
     }
 }
