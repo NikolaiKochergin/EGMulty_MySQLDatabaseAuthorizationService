@@ -76,16 +76,17 @@ namespace Source.Scripts.GameCore.Deck.Service
 
         public void UpdateSelectedCards()
         {
-            string ids = _selectedCards
-                .Aggregate("[", (current, card) => current + $" {card.Id},")
-                .TrimEnd(',') + " ]";
-
+            SelectedData selectedData = new()
+            {
+                IDs = _selectedCards.Select(c => c.Id).ToArray(),
+            };
+            
             Dictionary<string, string> data = new()
             {
-                { SelectedIDs, ids },
+                { UserID, _authorization.UserId.ToString() },
+                { SelectedIDs, JsonUtility.ToJson(selectedData) },
             };
-
-            _network.SendRequest(_updateDeckUrl, data, s => { Debug.Log("Success " + s);}, s => { Debug.Log("Error " + s);});
+            _network.SendRequest(_updateDeckUrl, data);
         }
 
         private void OnAuthorizationHappened()
