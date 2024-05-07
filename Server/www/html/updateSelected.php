@@ -18,8 +18,7 @@
     }
 
     R::store($user);
-
-
+    
 
     $selectedIDs = json_decode($selectedIDsJson, true)['IDs'];
     
